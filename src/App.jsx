@@ -1,16 +1,20 @@
 import React from 'react'
 import {Route, Routes} from 'react-router-dom'
 
-//components
+//pages
 import { CampaignDetails, Home, CreateCampaign, Profile } from './pages'
+
+//components
+import { Sidebar, Navbar } from './components'
+
 function App() {
   return (
-    <div className='relative sm: -8 p-4 bg-[#13131a] min-h-screen flex flex-row'>
-      <div className='sm:flex hidden mr-10 relative text-white'>
-        Sidebar
+    <div className='relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row'>
+      <div className='sm:flex hidden mr-10 relative'>
+        <Sidebar/>
       </div>
       <div className='flex-1 max-sm:w-full max-w-[1080px] mx-auto sm:pr-5'>
-        NavBar
+        <Navbar/>
         <Routes>
           <Route path='/' element={<Home/>}/> 
         </Routes>
