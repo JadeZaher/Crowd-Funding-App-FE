@@ -3,6 +3,9 @@ import React, { useState } from "react";
 //dom
 import { Link, useNavigate } from "react-router-dom";
 
+//context
+import { useStateContext } from "../context";
+
 //components
 import { CustomButton } from "./";
 
@@ -14,18 +17,17 @@ function Navbar() {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState("dashboard");
   const [toggleDrawer, setToggleDrawer] = useState(false);
-
-  const address = "0xabc";
+  const { connect, address } = useStateContext();
 
   return (
-    <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
-      <div className="lg:flex-1 flex flex-row max-w-[458px] py-2 pl-4 pr-2 h-[52px] bg-[#1c1c24]  rounded-[100px]">
+    <div className="mb-[35px] flex flex-col-reverse justify-between gap-6 md:flex-row">
+      <div className="flex h-[52px] max-w-[458px] flex-row rounded-[100px] bg-[#1c1c24] py-2 pl-4 pr-2  lg:flex-1">
         <input
           type="text"
           placeholder="campaigns"
-          className="flex w-full font-epilogue font-normal text-[14px] placeholer:text=[#4b5264] text-white bg-transparent outline-none"
+          className="placeholer:text=[#4b5264] flex w-full bg-transparent font-epilogue text-[14px] font-normal text-white outline-none"
         />
-        <div className="w-[72px] h-full rounded-[20px] bg-[#4acd8d] flex justify-center items-center cursor-pointer">
+        <div className="flex h-full w-[72px] cursor-pointer items-center justify-center rounded-[20px] bg-[#4acd8d]">
           <img
             src={search}
             alt="search"
@@ -33,43 +35,43 @@ function Navbar() {
           />
         </div>
       </div>
-      <div className="sm:flex hidden flex-row justify-end gap-4">
+      <div className="hidden flex-row justify-end gap-4 sm:flex">
         <CustomButton
           btnType="button"
           title={address ? "Create a campagin" : "Connect Wallet"}
           styles={address ? `bg-[#1dc071]` : `bg-[#8c6dfd]`}
           handleClick={() => {
             if (address) navigate("create-campaign");
-            else "connect()";
+            else connect();
           }}
         />
         <Link to="/profile">
-          <div className="w-[52px] h-[52px] rounded-full bg-[#2c2f32] flex justify-center items-center cursor-pointer ">
+          <div className="flex h-[52px] w-[52px] cursor-pointer items-center justify-center rounded-full bg-[#2c2f32] ">
             <img
               src={thirdweb}
               alt="user"
-              className="w-[60%] h-[60%] object-contain"
+              className="h-[60%] w-[60%] object-contain"
             />
           </div>
         </Link>
       </div>
       {/* small screen nav */}
-      <div className="sm:hidden flex justify-between items-center relative">
-        <div className="w-[40px] h-[40px] rounded-[10px] bg-[#2c2f32] flex justify-center items-center cursor-pointer">
+      <div className="relative flex items-center justify-between sm:hidden">
+        <div className="flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-[10px] bg-[#2c2f32]">
           <img
             src={logo}
             alt="user"
-            className="w-[60%] h-[60%] object-contain"
+            className="h-[60%] w-[60%] object-contain"
           />
         </div>
         <img
           src={menu}
           alt="menu"
-          className="w-[34px] h-[34px] object-contain cursor-pointer"
+          className="h-[34px] w-[34px] cursor-pointer object-contain"
           onClick={() => setToggleDrawer((prev) => !prev)}
         />
         <div
-          className={`absolute top-[60px] right-0 left-0 bg-[#1c1c24] z-10 shadow-secondary py-4 ${
+          className={`absolute top-[60px] right-0 left-0 z-10 bg-[#1c1c24] py-4 shadow-secondary ${
             !toggleDrawer ? `-translate-y-[100vh]` : `translate-y-0`
           } transition-all duration-700`}
         >
@@ -89,12 +91,12 @@ function Navbar() {
                 <img
                   src={link.imgUrl}
                   alt={link.name}
-                  className={`w-[24px] h-[24px] object-contain ${
+                  className={`h-[24px] w-[24px] object-contain ${
                     isActive ? `grayscale-0` : `grayscale`
                   }`}
                 />
                 <p
-                  className={`ml-[20px] font-epilogue semi-bold text-[14px] ${
+                  className={`semi-bold ml-[20px] font-epilogue text-[14px] ${
                     link.name ? `text-[#1dc071]` : `text-[#808191]`
                   }`}
                 >
@@ -103,14 +105,14 @@ function Navbar() {
               </li>
             ))}
           </ul>
-          <div className="flex mx-4 ">
+          <div className="mx-4 flex ">
             <CustomButton
               btnType="button"
               title={address ? "Create a campagin" : "Connect Wallet"}
               styles={address ? `bg-[#1dc071]` : `bg-[#8c6dfd]`}
               handleClick={() => {
                 if (address) navigate("create-campaign");
-                else "connect()";
+                else connect();
               }}
             />
           </div>
