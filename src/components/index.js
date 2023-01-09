@@ -4,3 +4,4 @@ export { default as CustomButton } from './CustomButton.component';
 export { default as FormField } from './FormField.component';
 export { default as DisplayCampaigns } from './DisplayCampaigns.component';
 export { default as FundCard } from './FundCard.component';
+export { default as CountBox } from './CountBox.component';
